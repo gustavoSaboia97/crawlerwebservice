@@ -18,8 +18,6 @@ public class MagazineService {
 
     public Feed getFeed(){
 
-        log.info("Accessing the magazine endpoint: {}", globoComponent.getEndpoint());
-
         System.out.println(getRequestResponse());
 
         return new Feed();
