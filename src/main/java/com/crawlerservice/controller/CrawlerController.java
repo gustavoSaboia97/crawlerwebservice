@@ -25,9 +25,9 @@ public class CrawlerController {
 
         log.info("GET Request at {}", CRAWLER_ENDPOINT);
 
-        Feed feed = magazineService.getFeed();
+        var feed = magazineService.getFeed();
 
-        String json = jsonUtil.getJsonFromItemList(feed);
+        var json = jsonUtil.getJsonFromItemList(feed);
 
         return json;
     }

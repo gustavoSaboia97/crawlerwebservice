@@ -19,8 +19,6 @@ public class ServerRequest {
 
         log.info("Accessing the magazine endpoint: {}", endpoint);
 
-        String result = restTemplate.getForObject(endpoint, String.class);
-
-        return result;
+        return restTemplate.getForObject(endpoint, String.class);
     }
 }
