@@ -1,6 +1,5 @@
 package com.crawlerservice.controller;
 
-import com.crawlerservice.model.Feed;
 import com.crawlerservice.service.MagazineService;
 import com.crawlerservice.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;

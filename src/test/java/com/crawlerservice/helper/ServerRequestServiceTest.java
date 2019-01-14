@@ -1,5 +1,6 @@
 package com.crawlerservice.helper;
 
+import com.crawlerservice.service.ServerRequestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -16,10 +17,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ServerRequestTest {
+public class ServerRequestServiceTest {
 
     @InjectMocks
-    private ServerRequest serverRequest;
+    private ServerRequestService serverRequestService;
 
     @Mock
     private RestTemplate restTemplate;
@@ -33,7 +34,7 @@ public class ServerRequestTest {
 
         when(restTemplate.getForObject(endpoint, String.class)).thenReturn(result);
 
-        String finalResult = serverRequest.getRequestData(endpoint);
+        String finalResult = serverRequestService.getRequestData(endpoint);
 
         verify(restTemplate).getForObject(endpoint, String.class);
 

@@ -1,20 +1,20 @@
 package com.crawlerservice.model;
 
-import lombok.Data;
+import com.crawlerservice.model.item.CompleteItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Feed {
 
-    List<Item> items;
+    List<CompleteItem> items;
 
     public Feed(){
 
         items = new ArrayList<>();
     }
 
-    public void addItem(Item item){
+    public void addItem(CompleteItem item){
 
         items.add(item);
     }
