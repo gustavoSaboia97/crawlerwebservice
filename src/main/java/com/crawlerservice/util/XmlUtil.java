@@ -1,5 +1,6 @@
 package com.crawlerservice.util;
 
+import com.crawlerservice.model.item.CompleteItem;
 import com.crawlerservice.model.item.UncompleteItem;
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,5 +44,10 @@ public class XmlUtil {
         }
 
         return items;
+    }
+
+    public List<CompleteItem> getCompleteItems(List<UncompleteItem> uncompleteItems) {
+
+        return new ArrayList<CompleteItem>();
     }
 }

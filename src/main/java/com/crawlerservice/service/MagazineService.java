@@ -2,7 +2,7 @@ package com.crawlerservice.service;
 
 import com.crawlerservice.component.GloboComponent;
 import com.crawlerservice.model.Feed;
-import com.crawlerservice.model.item.Item;
+import com.crawlerservice.model.item.CompleteItem;
 import com.crawlerservice.model.item.UncompleteItem;
 import com.crawlerservice.util.XmlUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -22,18 +22,23 @@ public class MagazineService {
 
     private XmlUtil xmlUtil;
 
+    private Feed feed;
+
     public MagazineService(){
 
         xmlUtil = new XmlUtil();
+        feed = new Feed();
     }
 
     public Feed getFeed(){
 
-        Feed feed = new Feed();
-
-        var xmlResponse = getRequestResponse();
+        String xmlResponse = getRequestResponse();
 
         List<UncompleteItem> uncompleteItems = xmlUtil.xmlUncompleteItemParser(xmlResponse);
+
+        List<CompleteItem> completeItems = xmlUtil.getCompleteItems(uncompleteItems);
+
+        feed.setItems(completeItems);
 
         return feed;
     }

@@ -1,5 +1,6 @@
 package com.crawlerservice.controller;
 
+import com.crawlerservice.model.Feed;
 import com.crawlerservice.service.MagazineService;
 import com.crawlerservice.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +25,9 @@ public class CrawlerController {
 
         log.info("GET Request at {}", CRAWLER_ENDPOINT);
 
-        var feed = magazineService.getFeed();
+        Feed feed = magazineService.getFeed();
 
-        var json = jsonUtil.getJsonFromItemList(feed);
+        String json = jsonUtil.getJsonFromItemList(feed);
 
         return json;
     }
