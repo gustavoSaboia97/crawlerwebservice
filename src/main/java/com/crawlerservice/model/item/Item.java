@@ -11,5 +11,7 @@ public class Item {
 
     public Item(String title, String link){
 
+        this.title = title;
+        this.link = link;
     }
 }
