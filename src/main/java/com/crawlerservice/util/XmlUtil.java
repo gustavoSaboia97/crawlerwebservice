@@ -1,5 +1,7 @@
 package com.crawlerservice.util;
 
+import com.crawlerservice.model.content.Content;
+import com.crawlerservice.model.content.ContentItem;
 import com.crawlerservice.model.item.CompleteItem;
 import com.crawlerservice.model.item.UncompleteItem;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +32,7 @@ public class XmlUtil {
 
         log.info("Parsing the XML to an uncompleted item");
 
-        List<UncompleteItem> items = new ArrayList<UncompleteItem>();
+        List<UncompleteItem> items = new ArrayList<>();
 
         Document doc = Jsoup.parse(xmlResponse,"", Parser.xmlParser());
 
@@ -48,6 +50,36 @@ public class XmlUtil {
 
     public List<CompleteItem> getCompleteItems(List<UncompleteItem> uncompleteItems) {
 
-        return new ArrayList<CompleteItem>();
+        log.info("Parsing the uncomplete Items to an complete items");
+
+        List<CompleteItem> completeItems = new ArrayList<>();
+
+        for (UncompleteItem uncompleteItem : uncompleteItems){
+
+            String title = uncompleteItem.getTitle();
+            String link = uncompleteItem.getLink();
+            String description = uncompleteItem.getDescription();
+
+            List<Content> contents = getContentFromDescription(description);
+
+            CompleteItem completeItem = new CompleteItem(title, link, contents);
+
+            completeItems.add(completeItem);
+        }
+
+        return completeItems;
+    }
+
+    public List<Content> getContentFromDescription(String description){
+
+        List<Content> contents = new ArrayList<>();
+
+        Document doc = Jsoup.parse(description,"", Parser.xmlParser());
+
+        elementUtil.getImagesFromDescription(contents, doc);
+        elementUtil.getParagraphsFromDescription(contents, doc);
+        elementUtil.getLinksFromDescription(contents, doc);
+
+        return contents;
     }
 }

@@ -5,13 +5,11 @@ import com.crawlerservice.model.Feed;
 import com.crawlerservice.model.item.CompleteItem;
 import com.crawlerservice.model.item.UncompleteItem;
 import com.crawlerservice.util.XmlUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Slf4j
 @Service
 public class MagazineService {
 

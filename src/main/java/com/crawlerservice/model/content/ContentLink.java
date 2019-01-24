@@ -4,9 +4,9 @@ import lombok.Getter;
 
 import java.util.List;
 
-public class ContentLink extends Content {
+import static com.crawlerservice.component.JsonConstants.LINKS;
 
-    private static final String LINKS = "links";
+public class ContentLink extends Content {
 
     @Getter
     List<String> links;
