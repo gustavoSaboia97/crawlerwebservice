@@ -1,5 +1,7 @@
 package com.crawlerservice.util;
 
+import com.crawlerservice.model.content.Content;
+import com.crawlerservice.model.item.CompleteItem;
 import com.crawlerservice.model.item.UncompleteItem;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,8 +20,11 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.crawlerservice.component.XmlConstants.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -48,6 +53,9 @@ public class XmlUtilTest {
 
         initMocks(this);
 
+        PowerMockito.mockStatic(Jsoup.class);
+        PowerMockito.mockStatic(Parser.class);
+
         xmlResponse = "<item>CompleteItem</item>";
     }
 
@@ -58,9 +66,6 @@ public class XmlUtilTest {
         Element element = mock(Element.class);
 
         UncompleteItem uncompleteItem = mock(UncompleteItem.class);
-
-        PowerMockito.mockStatic(Jsoup.class);
-        PowerMockito.mockStatic(Parser.class);
 
         PowerMockito.whenNew(ArrayList.class).withNoArguments().thenReturn(items);
 
@@ -82,5 +87,23 @@ public class XmlUtilTest {
 
         verify(doc).select(ITEM);
         verify(elementUtil).getUncompleteItem(element);
+    }
+
+    @Test
+    public void shouldReturnContentFromDescription() throws Exception {
+
+        ArrayList<Content> contents = mock(ArrayList.class);
+
+        PowerMockito.whenNew(ArrayList.class).withNoArguments().thenReturn(contents);
+
+        PowerMockito.when(Parser.xmlParser()).thenReturn(parser);
+        PowerMockito.when(Jsoup.parse(xmlResponse, "", Parser.xmlParser())).thenReturn(doc);
+
+        List<Content> contentResponse = xmlUtil.getContentFromDescription(xmlResponse);
+
+        PowerMockito.verifyStatic(Jsoup.class);
+            Jsoup.parse(xmlResponse, "", Parser.xmlParser());
+
+        assertThat(contentResponse.size(), is(0));
     }
 }
